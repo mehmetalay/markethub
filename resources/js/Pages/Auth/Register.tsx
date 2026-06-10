@@ -18,28 +18,28 @@ export default function Register() {
     return (
         <main className="flex min-h-screen items-center justify-center bg-slate-50 px-6 py-10">
             <section className="w-full max-w-lg rounded-lg border border-slate-200 bg-white p-8 shadow-sm">
-                <h1 className="text-2xl font-semibold text-slate-950">Create MarketHub workspace</h1>
+                <h1 className="text-2xl font-semibold text-slate-950">MarketHub çalışma alanı oluştur</h1>
                 <p className="mt-2 text-sm text-slate-500">
-                    A tenant and owner user will be created in the single database model.
+                    İşletmeniz için bir çalışma alanı ve yönetici kullanıcı oluşturun.
                 </p>
 
                 <form className="mt-8 space-y-5" onSubmit={submit}>
                     <Field
-                        label="Tenant name"
+                        label="Çalışma alanı adı"
                         name="tenant_name"
                         value={data.tenant_name}
                         error={errors.tenant_name}
                         onChange={(value) => setData('tenant_name', value)}
                     />
                     <Field
-                        label="Your name"
+                        label="Adınız"
                         name="name"
                         value={data.name}
                         error={errors.name}
                         onChange={(value) => setData('name', value)}
                     />
                     <Field
-                        label="Email"
+                        label="E-posta"
                         name="email"
                         type="email"
                         value={data.email}
@@ -47,7 +47,7 @@ export default function Register() {
                         onChange={(value) => setData('email', value)}
                     />
                     <Field
-                        label="Password"
+                        label="Şifre"
                         name="password"
                         type="password"
                         value={data.password}
@@ -55,7 +55,7 @@ export default function Register() {
                         onChange={(value) => setData('password', value)}
                     />
                     <Field
-                        label="Confirm password"
+                        label="Şifreyi onayla"
                         name="password_confirmation"
                         type="password"
                         value={data.password_confirmation}
@@ -68,14 +68,14 @@ export default function Register() {
                         type="submit"
                         disabled={processing}
                     >
-                        Create workspace
+                        Çalışma Alanı Oluştur
                     </button>
                 </form>
 
                 <p className="mt-6 text-center text-sm text-slate-500">
-                    Already registered?{' '}
+                    Zaten hesabınız var mı?{' '}
                     <Link className="font-medium text-blue-700 hover:underline" href="/login">
-                        Sign in
+                        Giriş yap
                     </Link>
                 </p>
             </section>

@@ -18,7 +18,7 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
                             MarketHub
                         </Link>
                         <p className="text-sm text-slate-500">
-                            {auth.tenant?.name ?? 'No tenant selected'}
+                            {auth.tenant?.name ?? 'Çalışma alanı seçilmedi'}
                         </p>
                     </div>
 
@@ -32,7 +32,7 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
                             type="button"
                             onClick={() => router.post('/logout')}
                         >
-                            Logout
+                            Çıkış Yap
                         </button>
                     </div>
                 </div>

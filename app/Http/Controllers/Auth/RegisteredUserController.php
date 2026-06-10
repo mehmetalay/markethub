@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 use Inertia\Response;
 use Spatie\Permission\Models\Role;
@@ -31,7 +30,22 @@ class RegisteredUserController extends Controller
             'tenant_name' => ['required', 'string', 'max:160'],
             'name' => ['required', 'string', 'max:160'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'confirmed', Password::defaults()],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ], [
+            'tenant_name.required' => 'Çalışma alanı adı zorunludur.',
+            'tenant_name.string' => 'Çalışma alanı adı metin formatında olmalıdır.',
+            'tenant_name.max' => 'Çalışma alanı adı en fazla 160 karakter olabilir.',
+            'name.required' => 'Adınız zorunludur.',
+            'name.string' => 'Adınız metin formatında olmalıdır.',
+            'name.max' => 'Adınız en fazla 160 karakter olabilir.',
+            'email.required' => 'E-posta adresi zorunludur.',
+            'email.email' => 'Geçerli bir e-posta adresi girin.',
+            'email.max' => 'E-posta adresi en fazla 255 karakter olabilir.',
+            'email.unique' => 'Bu e-posta adresi zaten kullanılıyor.',
+            'password.required' => 'Şifre zorunludur.',
+            'password.string' => 'Şifre metin formatında olmalıdır.',
+            'password.min' => 'Şifre en az 8 karakter olmalıdır.',
+            'password.confirmed' => 'Şifre onayı eşleşmiyor.',
         ]);
 
         [$tenant, $user] = DB::transaction(function () use ($data): array {
