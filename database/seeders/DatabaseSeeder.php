@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Domain\Marketplace\Enums\MarketplaceCode;
+use App\Domain\Marketplace\Models\Marketplace;
 use App\Domain\Tenant\Enums\TenantStatus;
 use App\Domain\Tenant\Models\Tenant;
 use App\Models\User;
@@ -20,6 +22,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->seedMarketplaces();
+
         $tenant = Tenant::firstOrCreate(
             ['slug' => 'markethub-internal'],
             [
@@ -38,6 +42,7 @@ class DatabaseSeeder extends Seeder
             'users.manage',
             'roles.manage',
             'marketplaces.view',
+            'marketplace_accounts.manage',
         ])->map(fn (string $name) => Permission::firstOrCreate([
             'name' => $name,
             'guard_name' => 'web',
@@ -58,5 +63,24 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user->assignRole($ownerRole);
+    }
+
+    private function seedMarketplaces(): void
+    {
+        foreach (MarketplaceCode::cases() as $marketplaceCode) {
+            Marketplace::query()->updateOrCreate(
+                ['code' => $marketplaceCode->value],
+                [
+                    'name' => match ($marketplaceCode) {
+                        MarketplaceCode::Trendyol => 'Trendyol',
+                        MarketplaceCode::TrendyolGo => 'Trendyol Go',
+                        MarketplaceCode::Hepsiburada => 'Hepsiburada',
+                        MarketplaceCode::N11 => 'n11',
+                        MarketplaceCode::Amazon => 'Amazon',
+                    },
+                    'is_active' => true,
+                ],
+            );
+        }
     }
 }
