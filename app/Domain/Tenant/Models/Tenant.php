@@ -2,6 +2,8 @@
 
 namespace App\Domain\Tenant\Models;
 
+use App\Domain\Marketplace\Models\MarketplaceAccount;
+use App\Domain\Marketplace\Models\MarketplaceConnectionCheck;
 use App\Domain\Tenant\Enums\TenantStatus;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -17,6 +19,16 @@ class Tenant extends Model
     public function users(): HasMany
     {
         return $this->hasMany(User::class);
+    }
+
+    public function marketplaceAccounts(): HasMany
+    {
+        return $this->hasMany(MarketplaceAccount::class);
+    }
+
+    public function marketplaceConnectionChecks(): HasMany
+    {
+        return $this->hasMany(MarketplaceConnectionCheck::class);
     }
 
     protected function casts(): array

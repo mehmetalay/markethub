@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MarketplaceAccountController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,5 +22,11 @@ Route::middleware('guest')->group(function (): void {
 
 Route::middleware('auth')->group(function (): void {
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
+    Route::get('/marketplace-accounts', [MarketplaceAccountController::class, 'index'])
+        ->name('marketplace-accounts.index');
+    Route::get('/marketplace-accounts/create', [MarketplaceAccountController::class, 'create'])
+        ->name('marketplace-accounts.create');
+    Route::post('/marketplace-accounts', [MarketplaceAccountController::class, 'store'])
+        ->name('marketplace-accounts.store');
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });
