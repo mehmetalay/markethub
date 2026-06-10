@@ -18,13 +18,13 @@ export default function Login() {
             <section className="w-full max-w-md rounded-lg border border-slate-200 bg-white p-8 shadow-sm">
                 <h1 className="text-2xl font-semibold text-slate-950">MarketHub</h1>
                 <p className="mt-2 text-sm text-slate-500">
-                    Sign in to the marketplace integration admin panel.
+                    Pazaryeri entegrasyon yönetim paneline giriş yapın.
                 </p>
 
                 <form className="mt-8 space-y-5" onSubmit={submit}>
                     <div>
                         <label className="block text-sm font-medium text-slate-700" htmlFor="email">
-                            Email
+                            E-posta
                         </label>
                         <input
                             id="email"
@@ -39,7 +39,7 @@ export default function Login() {
 
                     <div>
                         <label className="block text-sm font-medium text-slate-700" htmlFor="password">
-                            Password
+                            Şifre
                         </label>
                         <input
                             id="password"
@@ -58,7 +58,7 @@ export default function Login() {
                             checked={data.remember}
                             onChange={(event) => setData('remember', event.target.checked)}
                         />
-                        Remember me
+                        Beni hatırla
                     </label>
 
                     <button
@@ -66,14 +66,14 @@ export default function Login() {
                         type="submit"
                         disabled={processing}
                     >
-                        Sign in
+                        Giriş Yap
                     </button>
                 </form>
 
                 <p className="mt-6 text-center text-sm text-slate-500">
-                    New tenant?{' '}
+                    Yeni çalışma alanı mı oluşturuyorsunuz?{' '}
                     <Link className="font-medium text-blue-700 hover:underline" href="/register">
-                        Create workspace
+                        Çalışma alanı oluştur
                     </Link>
                 </p>
             </section>

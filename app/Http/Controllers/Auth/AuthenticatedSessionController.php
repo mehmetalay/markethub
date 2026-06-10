@@ -22,11 +22,16 @@ class AuthenticatedSessionController extends Controller
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required', 'string'],
+        ], [
+            'email.required' => 'E-posta adresi zorunludur.',
+            'email.email' => 'Geçerli bir e-posta adresi girin.',
+            'password.required' => 'Şifre zorunludur.',
+            'password.string' => 'Şifre metin formatında olmalıdır.',
         ]);
 
         if (! Auth::attempt($credentials, $request->boolean('remember'))) {
             throw ValidationException::withMessages([
-                'email' => __('auth.failed'),
+                'email' => 'E-posta adresi veya şifre hatalı.',
             ]);
         }
 
