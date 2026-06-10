@@ -17,7 +17,7 @@ class DashboardController extends Controller
                 'tenantStatus' => $user->tenant?->status->value,
                 'roles' => $user->getRoleNames()->values(),
                 'apiFirst' => true,
-                'marketplaceProviders' => 0,
+                'marketplaceProviders' => $user->tenant?->marketplaceAccounts()->count() ?? 0,
             ],
         ]);
     }
