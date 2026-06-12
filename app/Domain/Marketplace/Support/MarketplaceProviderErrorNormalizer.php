@@ -5,12 +5,21 @@ namespace App\Domain\Marketplace\Support;
 use App\Domain\Marketplace\Contracts\ProviderErrorNormalizer;
 use App\Domain\Marketplace\Data\ProviderError;
 use App\Domain\Marketplace\Exceptions\MarketplaceProviderException;
+use App\Domain\Marketplace\Providers\Trendyol\TrendyolProviderRequestException;
 use Throwable;
 
 class MarketplaceProviderErrorNormalizer implements ProviderErrorNormalizer
 {
     public function normalize(Throwable $throwable): ProviderError
     {
+        if ($throwable instanceof TrendyolProviderRequestException) {
+            return new ProviderError(
+                code: $throwable->errorCode(),
+                message: $throwable->getMessage(),
+                category: 'provider_http',
+            );
+        }
+
         if ($throwable instanceof MarketplaceProviderException) {
             return new ProviderError(
                 code: $throwable->errorCode(),

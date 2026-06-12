@@ -30,12 +30,12 @@ class MarketplaceConnectionCheckTest extends TestCase
             'timezone' => 'UTC',
         ]);
 
-        $marketplace = Marketplace::query()->where('code', MarketplaceCode::Trendyol->value)->firstOrFail();
+        $marketplace = Marketplace::query()->where('code', MarketplaceCode::Hepsiburada->value)->firstOrFail();
 
         $account = MarketplaceAccount::query()->create([
             'tenant_id' => $tenant->id,
             'marketplace_id' => $marketplace->id,
-            'name' => 'Trendyol Ana Hesap',
+            'name' => 'Hepsiburada Ana Hesap',
             'status' => MarketplaceAccountStatus::Draft,
             'credentials' => [
                 'api_key' => 'connection-key',
@@ -48,7 +48,7 @@ class MarketplaceConnectionCheckTest extends TestCase
         $this->assertSame($tenant->id, $check->tenant_id);
         $this->assertSame($account->id, $check->marketplace_account_id);
         $this->assertSame(MarketplaceConnectionStatus::Pending, $check->status);
-        $this->assertSame('trendyol', $check->metadata['provider']['code']);
+        $this->assertSame('hepsiburada', $check->metadata['provider']['code']);
         $this->assertSame($tenant->id, $check->metadata['context']['tenant_id']);
         $this->assertSame($account->id, $check->metadata['context']['marketplace_account_id']);
 
