@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MarketplaceAccountController;
+use App\Http\Controllers\MarketplaceMappingController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -39,5 +40,25 @@ Route::middleware('auth')->group(function (): void {
         ->name('products.edit');
     Route::put('/products/{product}', [ProductController::class, 'update'])
         ->name('products.update');
+    Route::redirect('/marketplace-mappings', '/marketplace-mappings/categories')
+        ->name('marketplace-mappings.index');
+    Route::get('/marketplace-mappings/categories', [MarketplaceMappingController::class, 'categories'])
+        ->name('marketplace-mappings.categories');
+    Route::post('/marketplace-mappings/categories', [MarketplaceMappingController::class, 'storeCategory'])
+        ->name('marketplace-mappings.categories.store');
+    Route::put('/marketplace-mappings/categories/{mapping}', [MarketplaceMappingController::class, 'updateCategory'])
+        ->name('marketplace-mappings.categories.update');
+    Route::get('/marketplace-mappings/brands', [MarketplaceMappingController::class, 'brands'])
+        ->name('marketplace-mappings.brands');
+    Route::post('/marketplace-mappings/brands', [MarketplaceMappingController::class, 'storeBrand'])
+        ->name('marketplace-mappings.brands.store');
+    Route::put('/marketplace-mappings/brands/{mapping}', [MarketplaceMappingController::class, 'updateBrand'])
+        ->name('marketplace-mappings.brands.update');
+    Route::get('/marketplace-mappings/attributes', [MarketplaceMappingController::class, 'attributes'])
+        ->name('marketplace-mappings.attributes');
+    Route::post('/marketplace-mappings/attributes', [MarketplaceMappingController::class, 'storeAttribute'])
+        ->name('marketplace-mappings.attributes.store');
+    Route::put('/marketplace-mappings/attributes/{mapping}', [MarketplaceMappingController::class, 'updateAttribute'])
+        ->name('marketplace-mappings.attributes.update');
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });

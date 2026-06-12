@@ -11,8 +11,14 @@ use App\Domain\Catalog\Models\ProductImage;
 use App\Domain\Catalog\Models\ProductPrice;
 use App\Domain\Catalog\Models\ProductStock;
 use App\Domain\Catalog\Models\ProductVariant;
+use App\Domain\Marketplace\Models\AttributeMapping;
+use App\Domain\Marketplace\Models\AttributeValueMapping;
+use App\Domain\Marketplace\Models\BrandMapping;
+use App\Domain\Marketplace\Models\CategoryMapping;
 use App\Domain\Marketplace\Models\MarketplaceAccount;
 use App\Domain\Marketplace\Models\MarketplaceConnectionCheck;
+use App\Domain\Marketplace\Models\MetadataSyncRun;
+use App\Domain\Marketplace\Models\MetadataSyncRunItem;
 use App\Domain\Tenant\Enums\TenantStatus;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -83,6 +89,36 @@ class Tenant extends Model
     public function productStocks(): HasMany
     {
         return $this->hasMany(ProductStock::class);
+    }
+
+    public function categoryMappings(): HasMany
+    {
+        return $this->hasMany(CategoryMapping::class);
+    }
+
+    public function brandMappings(): HasMany
+    {
+        return $this->hasMany(BrandMapping::class);
+    }
+
+    public function attributeMappings(): HasMany
+    {
+        return $this->hasMany(AttributeMapping::class);
+    }
+
+    public function attributeValueMappings(): HasMany
+    {
+        return $this->hasMany(AttributeValueMapping::class);
+    }
+
+    public function metadataSyncRuns(): HasMany
+    {
+        return $this->hasMany(MetadataSyncRun::class);
+    }
+
+    public function metadataSyncRunItems(): HasMany
+    {
+        return $this->hasMany(MetadataSyncRunItem::class);
     }
 
     protected function casts(): array
