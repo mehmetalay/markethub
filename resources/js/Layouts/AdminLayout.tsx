@@ -11,6 +11,7 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
     const { auth } = page.props;
     const navigation = [
         { label: 'Kontrol Paneli', href: '/dashboard' },
+        { label: 'Ürünler', href: '/products' },
         { label: 'Pazaryeri Hesapları', href: '/marketplace-accounts' },
     ];
 
