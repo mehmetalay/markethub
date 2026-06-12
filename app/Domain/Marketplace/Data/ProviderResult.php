@@ -24,6 +24,14 @@ final readonly class ProviderResult
         return new self(MarketplaceConnectionStatus::Pending, $message, $metadata);
     }
 
+    /**
+     * @param  array<string, mixed>  $metadata
+     */
+    public static function successful(string $message, array $metadata = []): self
+    {
+        return new self(MarketplaceConnectionStatus::Successful, $message, $metadata);
+    }
+
     public static function failed(ProviderError $error): self
     {
         return new self(MarketplaceConnectionStatus::Failed, $error->message, [], $error);
