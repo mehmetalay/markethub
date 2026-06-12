@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Domain\Listing\Models;
+
+use App\Domain\Listing\Enums\ListingStatus;
+use App\Domain\Tenant\Models\Tenant;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+#[Fillable(['tenant_id', 'listing_id', 'old_status', 'new_status', 'message', 'metadata'])]
+class ListingStatusHistory extends Model
+{
+    use HasFactory;
+
+    public function tenant(): BelongsTo
+    {
+        return $this->belongsTo(Tenant::class);
+    }
+
+    public function listing(): BelongsTo
+    {
+        return $this->belongsTo(Listing::class);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'old_status' => ListingStatus::class,
+            'new_status' => ListingStatus::class,
+            'metadata' => 'array',
+        ];
+    }
+}

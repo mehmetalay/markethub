@@ -3,6 +3,7 @@
 namespace App\Domain\Catalog\Models;
 
 use App\Domain\Catalog\Enums\ProductVariantStatus;
+use App\Domain\Listing\Models\ListingVariant;
 use App\Domain\Tenant\Models\Tenant;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -34,6 +35,11 @@ class ProductVariant extends Model
     public function stock(): HasOne
     {
         return $this->hasOne(ProductStock::class);
+    }
+
+    public function listingVariants(): HasMany
+    {
+        return $this->hasMany(ListingVariant::class);
     }
 
     protected function casts(): array

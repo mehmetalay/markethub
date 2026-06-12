@@ -2,6 +2,7 @@
 
 namespace App\Domain\Marketplace\Models;
 
+use App\Domain\Listing\Models\Listing;
 use App\Domain\Marketplace\Enums\MarketplaceAccountStatus;
 use App\Domain\Tenant\Models\Tenant;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -35,6 +36,11 @@ class MarketplaceAccount extends Model
     public function metadataSyncRuns(): HasMany
     {
         return $this->hasMany(MetadataSyncRun::class);
+    }
+
+    public function listings(): HasMany
+    {
+        return $this->hasMany(Listing::class);
     }
 
     protected function casts(): array

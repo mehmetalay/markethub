@@ -2,6 +2,7 @@
 
 namespace App\Domain\Marketplace\Models;
 
+use App\Domain\Listing\Models\Listing;
 use App\Domain\Marketplace\Enums\MarketplaceCode;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -36,6 +37,11 @@ class Marketplace extends Model
     public function metadataSyncRuns(): HasMany
     {
         return $this->hasMany(MetadataSyncRun::class);
+    }
+
+    public function listings(): HasMany
+    {
+        return $this->hasMany(Listing::class);
     }
 
     protected function casts(): array
