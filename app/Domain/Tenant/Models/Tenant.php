@@ -11,6 +11,11 @@ use App\Domain\Catalog\Models\ProductImage;
 use App\Domain\Catalog\Models\ProductPrice;
 use App\Domain\Catalog\Models\ProductStock;
 use App\Domain\Catalog\Models\ProductVariant;
+use App\Domain\Listing\Models\Listing;
+use App\Domain\Listing\Models\ListingError;
+use App\Domain\Listing\Models\ListingPayload;
+use App\Domain\Listing\Models\ListingStatusHistory;
+use App\Domain\Listing\Models\ListingVariant;
 use App\Domain\Marketplace\Models\AttributeMapping;
 use App\Domain\Marketplace\Models\AttributeValueMapping;
 use App\Domain\Marketplace\Models\BrandMapping;
@@ -119,6 +124,31 @@ class Tenant extends Model
     public function metadataSyncRunItems(): HasMany
     {
         return $this->hasMany(MetadataSyncRunItem::class);
+    }
+
+    public function listings(): HasMany
+    {
+        return $this->hasMany(Listing::class);
+    }
+
+    public function listingVariants(): HasMany
+    {
+        return $this->hasMany(ListingVariant::class);
+    }
+
+    public function listingPayloads(): HasMany
+    {
+        return $this->hasMany(ListingPayload::class);
+    }
+
+    public function listingStatusHistories(): HasMany
+    {
+        return $this->hasMany(ListingStatusHistory::class);
+    }
+
+    public function listingErrors(): HasMany
+    {
+        return $this->hasMany(ListingError::class);
     }
 
     protected function casts(): array

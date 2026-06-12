@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ListingController;
 use App\Http\Controllers\MarketplaceAccountController;
 use App\Http\Controllers\MarketplaceMappingController;
 use App\Http\Controllers\ProductController;
@@ -40,6 +41,14 @@ Route::middleware('auth')->group(function (): void {
         ->name('products.edit');
     Route::put('/products/{product}', [ProductController::class, 'update'])
         ->name('products.update');
+    Route::get('/listings', [ListingController::class, 'index'])
+        ->name('listings.index');
+    Route::get('/listings/create', [ListingController::class, 'create'])
+        ->name('listings.create');
+    Route::post('/listings', [ListingController::class, 'store'])
+        ->name('listings.store');
+    Route::get('/listings/{listing}', [ListingController::class, 'show'])
+        ->name('listings.show');
     Route::redirect('/marketplace-mappings', '/marketplace-mappings/categories')
         ->name('marketplace-mappings.index');
     Route::get('/marketplace-mappings/categories', [MarketplaceMappingController::class, 'categories'])
