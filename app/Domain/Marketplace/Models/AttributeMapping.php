@@ -2,18 +2,17 @@
 
 namespace App\Domain\Marketplace\Models;
 
-use App\Domain\Marketplace\Enums\MarketplaceAccountStatus;
+use App\Domain\Catalog\Models\Attribute as CatalogAttribute;
+use App\Domain\Marketplace\Enums\MetadataMappingStatus;
 use App\Domain\Tenant\Models\Tenant;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['tenant_id', 'marketplace_id', 'name', 'status', 'credentials', 'settings'])]
-#[Hidden(['credentials'])]
-class MarketplaceAccount extends Model
+#[Fillable(['tenant_id', 'attribute_id', 'marketplace_id', 'marketplace_attribute_id', 'status', 'notes'])]
+class AttributeMapping extends Model
 {
     use HasFactory;
 
@@ -22,27 +21,30 @@ class MarketplaceAccount extends Model
         return $this->belongsTo(Tenant::class);
     }
 
+    public function attribute(): BelongsTo
+    {
+        return $this->belongsTo(CatalogAttribute::class, 'attribute_id');
+    }
+
     public function marketplace(): BelongsTo
     {
         return $this->belongsTo(Marketplace::class);
     }
 
-    public function connectionChecks(): HasMany
+    public function marketplaceAttribute(): BelongsTo
     {
-        return $this->hasMany(MarketplaceConnectionCheck::class);
+        return $this->belongsTo(MarketplaceAttribute::class);
     }
 
-    public function metadataSyncRuns(): HasMany
+    public function valueMappings(): HasMany
     {
-        return $this->hasMany(MetadataSyncRun::class);
+        return $this->hasMany(AttributeValueMapping::class);
     }
 
     protected function casts(): array
     {
         return [
-            'status' => MarketplaceAccountStatus::class,
-            'credentials' => 'encrypted:array',
-            'settings' => 'array',
+            'status' => MetadataMappingStatus::class,
         ];
     }
 }

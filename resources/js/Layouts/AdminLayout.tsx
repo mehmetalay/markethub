@@ -12,6 +12,7 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
     const navigation = [
         { label: 'Kontrol Paneli', href: '/dashboard' },
         { label: 'Ürünler', href: '/products' },
+        { label: 'Pazaryeri Eşleştirmeleri', href: '/marketplace-mappings' },
         { label: 'Pazaryeri Hesapları', href: '/marketplace-accounts' },
     ];
 
