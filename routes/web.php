@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MarketplaceAccountController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -28,5 +29,15 @@ Route::middleware('auth')->group(function (): void {
         ->name('marketplace-accounts.create');
     Route::post('/marketplace-accounts', [MarketplaceAccountController::class, 'store'])
         ->name('marketplace-accounts.store');
+    Route::get('/products', [ProductController::class, 'index'])
+        ->name('products.index');
+    Route::get('/products/create', [ProductController::class, 'create'])
+        ->name('products.create');
+    Route::post('/products', [ProductController::class, 'store'])
+        ->name('products.store');
+    Route::get('/products/{product}/edit', [ProductController::class, 'edit'])
+        ->name('products.edit');
+    Route::put('/products/{product}', [ProductController::class, 'update'])
+        ->name('products.update');
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });
